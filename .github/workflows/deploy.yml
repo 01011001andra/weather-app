@@ -1,12 +1,19 @@
 name: Deploy Weather App
 
 on:
+  pull_request:
+    branches:
+      - master  # Hanya berjalan saat ada PR ke master
+    types:
+      - closed  # Hanya berjalan saat PR sudah di-merge
+
   push:
     branches:
-      - master  # Sesuaikan dengan branch yang ingin digunakan untuk deploy
+      - master  # Deploy setelah PR di-merge ke master
 
 jobs:
   deploy:
+    if: github.event.pull_request.merged == true || github.event_name == 'push'
     runs-on: ubuntu-latest
 
     steps:
@@ -16,7 +23,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 22  # Sesuaikan dengan versi Node.js yang digunakan
+          node-version: 18  # Sesuaikan dengan versi Node.js yang digunakan
 
       - name: Install Dependencies
         run: npm install
