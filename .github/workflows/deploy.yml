@@ -10,9 +10,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Debug SSH Key
-        run: echo "${{ secrets.SSH_PRIVATE_KEY }}" | base64 --decode
-
       - name: Checkout Repository
         uses: actions/checkout@v3
 
