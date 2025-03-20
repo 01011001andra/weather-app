@@ -3,7 +3,7 @@ name: Deploy Weather App
 on:
   push:
     branches:
-      - main  # Sesuaikan dengan branch yang ingin digunakan untuk deploy
+      - master  # Sesuaikan dengan branch yang ingin digunakan untuk deploy
 
 jobs:
   deploy:
