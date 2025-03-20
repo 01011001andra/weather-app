@@ -1,0 +1,53 @@
+name: Deploy Weather App
+
+on:
+  push:
+    branches:
+      - main  # Sesuaikan dengan branch yang ingin digunakan untuk deploy
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22  # Sesuaikan dengan versi Node.js yang digunakan
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Project
+        run: npm run build
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: 194.163.40.83
+          username: root
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          script: |
+            cd /var/www/html/weather-app
+            rm -rf dist.tar.gz
+            rm -rf dist
+            exit  # Biarkan upload selesai sebelum ekstraksi
+
+      - name: Upload Build to Server
+        run: |
+          tar -cvzf dist.tar.gz -C dist .
+          scp dist.tar.gz root@194.163.40.83:/var/www/html/weather-app
+
+      - name: Extract and Deploy
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: 194.163.40.83
+          username: root
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          script: |
+            cd /var/www/html/weather-app
+            tar -xvzf dist.tar.gz
+            rm -rf dist.tar.gz
