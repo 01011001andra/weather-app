@@ -24,17 +24,24 @@ jobs:
       - name: Build Project
         run: npm run build
 
-      - name: Compress Build Artifacts
-        run: |
-          cd dist
-          tar -cvzf ../dist.tar.gz *
-          cd ..
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: 194.163.40.83
+          username: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /var/www/html/weather-app
+            rm -rf dist.tar.gz
+            rm -rf dist
+            exit  # Biarkan upload selesai sebelum ekstraksi
 
       - name: Upload Build to Server
         run: |
-          scp -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} dist.tar.gz root@194.163.40.83:/var/www/html/weather-app
+          tar -cvzf dist.tar.gz -C dist .
+          scp dist.tar.gz root@194.163.40.83:/var/www/html/weather-app
 
-      - name: Extract and Deploy on Server
+      - name: Extract and Deploy
         uses: appleboy/ssh-action@v0.1.10
         with:
           host: 194.163.40.83
@@ -44,4 +51,3 @@ jobs:
             cd /var/www/html/weather-app
             tar -xvzf dist.tar.gz
             rm -rf dist.tar.gz
-            echo "Deployment berhasil!"
