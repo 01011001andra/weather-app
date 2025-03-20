@@ -11,8 +11,8 @@ jobs:
 
     steps:
       - name: Debug SSH Key
-        run: echo "${{ secrets.DEPLOY_SSH_KEY }}" | base64 --decode
-        
+        run: echo "${{ secrets.SSH_PRIVATE_KEY }}" | base64 --decode
+
       - name: Checkout Repository
         uses: actions/checkout@v3
 
@@ -32,7 +32,7 @@ jobs:
         with:
           host: 194.163.40.83
           username: root
-          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /var/www/html/weather-app
             rm -rf dist.tar.gz
@@ -49,7 +49,7 @@ jobs:
         with:
           host: 194.163.40.83
           username: root
-          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /var/www/html/weather-app
             tar -xvzf dist.tar.gz
