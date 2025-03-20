@@ -24,6 +24,17 @@ jobs:
       - name: Build Project
         run: npm run build
 
+      - name: Compress Build Artifacts
+        run: |
+          cd dist
+          tar -cvzf ../dist.tar.gz *
+          cd ..
+
+      - name: Add SSH Host Key to Known Hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan 194.163.40.83 >> ~/.ssh/known_hosts
+
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v0.1.10
         with:
@@ -39,7 +50,7 @@ jobs:
       - name: Upload Build to Server
         run: |
           tar -cvzf dist.tar.gz -C dist .
-          scp dist.tar.gz root@194.163.40.83:/var/www/html/weather-app
+          scp -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} dist.tar.gz root@194.163.40.83:/var/www/html/weather-app
 
       - name: Extract and Deploy
         uses: appleboy/ssh-action@v0.1.10
@@ -51,3 +62,4 @@ jobs:
             cd /var/www/html/weather-app
             tar -xvzf dist.tar.gz
             rm -rf dist.tar.gz
+            echo "Deployment berhasil!"
