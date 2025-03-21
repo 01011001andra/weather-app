@@ -20,6 +20,7 @@ jobs:
             cd /var/www/html/weather-app
             git reset --hard
             git pull origin master
+            export PATH=$PATH:/usr/local/bin:/usr/bin:/bin
             npm install
             npm run build
             echo "Deployment berhasil!"
