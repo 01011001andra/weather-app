@@ -47,6 +47,11 @@ jobs:
             rm -rf dist
             exit  # Biarkan upload selesai sebelum ekstraksi
 
+      - name: Add SSH Host Key to Known Hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan 194.163.40.83 >> ~/.ssh/known_hosts
+
       - name: Upload Build, to Server
         run: |
           scp ./dist.tar.gz root@194.163.40.83:/var/www/html/weather-app
