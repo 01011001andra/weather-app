@@ -76,7 +76,7 @@ const HomePage = () => {
                 document.getElementById("prakiraan").showModal();
               }}
             >
-              Prakiraan cuaca 7 hari kedepan DEPLOYED
+              Prakiraan cuaca 7 hari kedepan TESTING GITHUB CHANGES
             </button>
           </div>
           <div className="join mx-auto md:mx-0">
