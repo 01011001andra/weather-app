@@ -90,7 +90,7 @@ const HomePage = () => {
           </div>
         </div>
         <div className="size-96">
-          <img src="https://github.com/01011001andra/weather-app/actions/workflows/deploy.yml/badge.svg?cachebuster=$(date +%s)" />
+          <img src="https://github.com/01011001andra/weather-app/actions/workflows/deploy.yml/badge.svg" />
         </div>
 
         {/* Daily alert */}
