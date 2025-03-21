@@ -84,7 +84,7 @@ const HomePage = () => {
               «
             </button>
             <button className="join-item btn ">{currentDate}</button>
-            <button className="join-item btn " onClick={handleNext}>
+            {/* <button className="join-item btn " onClick={handleNext}> */}
               »
             </button>
           </div>
