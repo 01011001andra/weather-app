@@ -52,9 +52,14 @@ jobs:
           mkdir -p ~/.ssh
           ssh-keyscan 194.163.40.83 >> ~/.ssh/known_hosts
 
+      # - name: Upload Build, to Server
+      #   run: |
+      #     scp ./dist.tar.gz root@194.163.40.83:/var/www/html/weather-app
+
       - name: Upload Build, to Server
         run: |
-          scp ./dist.tar.gz root@194.163.40.83:/var/www/html/weather-app
+          rsync -avz -e "ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa" ./dist.tar.gz root@194.163.40.83:/var/www/html/weather-app
+
 
       - name: Extract and Deploy
         uses: appleboy/ssh-action@v0.1.10
