@@ -30,10 +30,10 @@ jobs:
       #     tar -cvzf ../dist.tar.gz *
       #     cd ..
 
-      - name: Add SSH Host Key to Known Hosts
-        run: |
-          mkdir -p ~/.ssh
-          ssh-keyscan 194.163.40.83 >> ~/.ssh/known_hosts
+      # - name: Add SSH Host Key to Known Hosts
+      #   run: |
+      #     mkdir -p ~/.ssh
+      #     ssh-keyscan 194.163.40.83 >> ~/.ssh/known_hosts
 
       # - name: Deploy via SSH
       #   uses: appleboy/ssh-action@v0.1.10
