@@ -20,7 +20,8 @@ jobs:
             cd /var/www/html/weather-app
             git reset --hard
             git pull origin master
-            export PATH=$PATH:/usr/local/bin:/usr/bin:/bin
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
             npm install
             npm run build
             echo "Deployment berhasil!"
