@@ -90,7 +90,7 @@ const HomePage = () => {
           </div>
         </div>
         <div className="size-96">
-          <img src="https://github.com/01011001andra/weather-app/actions/workflows/deploy.yml/badge.svg?random=123" />
+          <img src="https://github.com/01011001andra/weather-app/actions/workflows/deploy.yml/badge.svg?cache-control=no-cache" />
         </div>
 
         {/* Daily alert */}
@@ -139,3 +139,4 @@ const HomePage = () => {
   );
 };
 
+export default HomePage;
